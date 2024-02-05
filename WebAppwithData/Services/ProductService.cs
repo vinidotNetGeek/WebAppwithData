@@ -2,30 +2,29 @@
 using System.Data;
 using System.Data.SqlClient;
 using WebAppwithData.Models;
+using Microsoft.FeatureManagement;
 
 namespace WebAppwithData.Services
 {
     public class ProductService : IProductService
     {
         private readonly IConfiguration _config;
+        private readonly IFeatureManager _featureManager;
 
-        //private static string db_source = "appdbserver1291.database.windows.net";
-        //private static string db_username = "sqladmin";
-        //private static string db_password = "Password@123";
-        //private static string db_database = "webappdb";
-
-        public ProductService(IConfiguration config)
+        public ProductService(IConfiguration config, IFeatureManager featureManager)
         {
             _config = config;
+            _featureManager = featureManager;
+        }
+
+        public async Task<bool> IsBeta()
+        {
+            return await _featureManager.IsEnabledAsync("beta") == true;
         }
 
         private SqlConnection GetConnection()
         {
-            //SqlConnectionStringBuilder sqlConnStringBuilder = new SqlConnectionStringBuilder();
-            //sqlConnStringBuilder.DataSource = db_source;
-            //sqlConnStringBuilder.UserID = db_username;
-            //sqlConnStringBuilder.Password = db_password;
-            //sqlConnStringBuilder.InitialCatalog = db_database;
+
             return new SqlConnection(_config["SQLConnection"]);
         }
 

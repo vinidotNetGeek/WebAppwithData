@@ -11,6 +11,7 @@ namespace WebAppwithData.Pages
 
         private readonly ILogger<IndexModel> _logger;
         public List<Product> products;
+        public bool IsBeta;
         public IndexModel(IProductService productService)
         {
             _productService = productService;
@@ -18,6 +19,7 @@ namespace WebAppwithData.Pages
 
         public void OnGet()
         {
+            IsBeta = _productService.IsBeta().Result;
             products = _productService.GetProducts();
         }
     }
