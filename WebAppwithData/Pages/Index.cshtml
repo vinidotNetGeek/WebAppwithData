@@ -11,7 +11,10 @@
 }
 <div class="text-center">
     <h1 class="display-4">This is list of products using Azure App configuration</h1>
-
+    @if (Model.IsBeta)
+    {
+        <h1 class="display-4">This is the Beta version of the Application</h1>
+    }
     <table class="table table-bordered">
 
         <thead>
