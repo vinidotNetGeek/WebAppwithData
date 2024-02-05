@@ -1,8 +1,12 @@
 using WebAppwithData.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+var appConfigConnString = "Endpoint=https://azureappconfig1291.azconfig.io;Id=iqsP;Secret=fFV9H2EsSdPUNXX9GnTJME8jWxBmhzaFaJh/APxgkj0=";
+builder.Host.ConfigureAppConfiguration(builder =>
+{
+    builder.AddAzureAppConfiguration(appConfigConnString);
+});
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IProductService, ProductService>();
 

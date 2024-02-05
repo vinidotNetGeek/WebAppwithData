@@ -26,7 +26,7 @@ namespace WebAppwithData.Services
             //sqlConnStringBuilder.UserID = db_username;
             //sqlConnStringBuilder.Password = db_password;
             //sqlConnStringBuilder.InitialCatalog = db_database;
-            return new SqlConnection(_config.GetConnectionString("SQLConnection"));
+            return new SqlConnection(_config["SQLConnection"]);
         }
 
         public List<Product> GetProducts()
