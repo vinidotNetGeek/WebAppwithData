@@ -7,17 +7,18 @@ namespace WebAppwithData.Pages
 {
     public class IndexModel : PageModel
     {
+        private readonly IProductService _productService;
+
         private readonly ILogger<IndexModel> _logger;
         public List<Product> products;
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IProductService productService)
         {
-            _logger = logger;
+            _productService = productService;
         }
 
         public void OnGet()
         {
-            ProductService prodService = new ProductService();
-            products = prodService.GetProducts();
+            products = _productService.GetProducts();
         }
     }
 }

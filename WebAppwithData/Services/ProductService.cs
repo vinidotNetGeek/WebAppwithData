@@ -5,27 +5,33 @@ using WebAppwithData.Models;
 
 namespace WebAppwithData.Services
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
+        private readonly IConfiguration _config;
 
-        private static string db_source = "appdbserver1291.database.windows.net";
-        private static string db_username = "sqladmin";
-        private static string db_password = "Password@123";
-        private static string db_database = "webappdb";
+        //private static string db_source = "appdbserver1291.database.windows.net";
+        //private static string db_username = "sqladmin";
+        //private static string db_password = "Password@123";
+        //private static string db_database = "webappdb";
+
+        public ProductService(IConfiguration config)
+        {
+            _config = config;
+        }
 
         private SqlConnection GetConnection()
         {
-            SqlConnectionStringBuilder sqlConnStringBuilder = new SqlConnectionStringBuilder();
-            sqlConnStringBuilder.DataSource = db_source;
-            sqlConnStringBuilder.UserID = db_username;
-            sqlConnStringBuilder.Password = db_password;
-            sqlConnStringBuilder.InitialCatalog = db_database;
-            return new SqlConnection(sqlConnStringBuilder.ConnectionString);
+            //SqlConnectionStringBuilder sqlConnStringBuilder = new SqlConnectionStringBuilder();
+            //sqlConnStringBuilder.DataSource = db_source;
+            //sqlConnStringBuilder.UserID = db_username;
+            //sqlConnStringBuilder.Password = db_password;
+            //sqlConnStringBuilder.InitialCatalog = db_database;
+            return new SqlConnection(_config.GetConnectionString("SQLConnection"));
         }
 
         public List<Product> GetProducts()
         {
-            
+
             var products = new List<Product>();
             SqlConnection conn = GetConnection();
             string sqlQuery = "SELECT ProductID, ProductName, Quantity from Products";
@@ -67,5 +73,5 @@ namespace WebAppwithData.Services
             return products;
 
         }
-	}
+    }
 }
